@@ -1,0 +1,82 @@
+En la tabla de avion en el ejercicio inicial indicamos que todos los aviones deben tener 200 asientos
+  Modificar el procedimiento para guardar_avion, de tal manera que impida que tenga mas de 200 asientos
+EJEMPLO:
+          --------------EJEMPLO DEL EJERCICIO 2--------------------
+                  CREATE TABLE FACIL(NOMBRE VARCHAR2(120), EDAD INTEGER);
+                  
+                  /* AGREGAREMOS UN PROCEDIMIENTO PARA GUARDAR EN LA TABLA FACIL IMPONDREMOS UNA REGLA QUE IMPIDA QUE SE REGISTRE UN MENOR DE EDAD*/
+                  CREATE OR REPLACE PROCEDURE GUARDAR_FACIL(MY_NOMBRE IN VARCHAR2, MY_EDAD IN INTEGER)
+                  AS
+                  BEGIN
+                  IF MY_EDAD<18 THEN
+                  RAISE_APPLICATION_ERROR(-20001,'LO SIENTO CHAMACO PERVERSO, IMPOSIBLE REGISTRARTE');
+                  END IF;
+                  dbms_output.put_line('USUARIO MAYOR DE EDAD GUARDADO');
+                  INSERT INTO FACIL VALUES (MY_NOMBRE,MY_EDAD);
+                  END;
+                  /
+                  
+                  SET SERVEROUTPUT ON;
+                  
+                  -- INVOCAR PROCEDIMIENTO GUARDAR_FACIL
+                  BEGIN
+                  GUARDAR_FACIL('JUAN',12);
+                  END;
+                  /
+                  
+
+
+
+EJERCICIO 2 SOLUCION.
+        create or replace PROCEDURE GUARDAR_AVION(
+        MY_ID_AVION OUT INTEGER,MY_ID_AEROLINEA IN INTEGER,
+          MY_ASIENTOS IN INTEGER)
+        AS
+        BEGIN 
+        IF MY_ASIENTOS>200 THEN
+        RAISE_APPLICATION_ERROR(-20001,'LO SIENTO EXCEDE EL NUMERO DE ASIENTOS');
+        END IF;
+        SELECT SEC_AVION.NEXTVAL INTO MY_ID_AVION FROM DUAL;
+        INSERT INTO AVION VALUES(MY_ID_AVION, MY_ID_AEROLINEA,
+        MY_ASIENTOS);
+        END;
+  
+EJERCICIO 3: GENERAR UN PROCEDIMIENTO QUE SE LLAME COMPRAR_BOLETO, QUE RECIBA COMO ARGUMENTO EL NUMERO DE BOLETOS A COMPRAR.
+EN LA LOGICA DEL PROCEDIMIENTO DEBERA DESCONTAR DE LOS ASIENTOS EL NUMERO DE BOLETOS PASADOS COMO ARGUMENTOS
+(SOBRE LA TABLA AVION, SI LA DIFERENCIA ES <0 DEBE LANZAR UNA EXCEPCION QUE DIGA "LO SIENTO YA NO HAY LUGARES")
+  
+  
+          
+          create or replace PROCEDURE COMPRAR_BOLETOS(MY_ASIENTOS IN INTEGER)
+        AS
+        ASIENTOS_ACTUALES INTEGER;
+        BEGIN 
+        SELECT ASIENTO INTO ASIENTOS_ACTUALES FROM AVION WHERE ID = MY_ID_AVION;
+        update AVION set avion.asiento = ASIENTOS_ACTUALES;
+        IF MY_ASIENTOS>ASIENTOS_ACTUALES THEN
+        RAISE_APPLICATION_ERROR(-20001,'LO SIENTO EXCEDE EL NUMERO DE ASIENTOS');
+        END IF;
+        SELECT SEC_AVION.NEXTVAL INTO MY_ID_AVION FROM DUAL;
+        INSERT INTO AVION VALUES(MY_ASIENTOS);
+        END;
+          
+          
+          
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
