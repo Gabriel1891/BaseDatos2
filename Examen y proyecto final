@@ -1,0 +1,14 @@
+Tips examen:
+  -crear 2 tablas PK/FK 1pt
+  -crear 2 secuencias *(SORPRESA) .5pt
+  -crear un procedimiento para guardar un registro en cada tabla 2.5pts
+  -un cursor implicito *(SORPRESOTA) 3pts
+  -un cursor explicito *(SORPRESOTA) 3pts
+  
+Proyecto final 50% 
+  -3 tablas relacionadas y normalizadas
+  -procedimientos para guardar (3)
+  -procedimientos para actualizar (3)
+  -bloques de busqueda (3)
+  -disparadores (6)
+  -interfaz de usuario (Desktop)
