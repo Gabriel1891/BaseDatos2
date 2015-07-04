@@ -1,0 +1,16 @@
+Disparadores
+DML se dividen en 2 grandes rubros:
+BEFORE: revisan la logica antes de la operacion (en su mayoria son para validar)
+  Ejercicio: Se necesita asegurar que sea imposible guardar o actualizar un trabajador cuyo sueldo_base > 8000
+    CREATE TABLE TRABAJADOR( NOMBRE VARCHAR2(120), SUELDO_BASE FLOAT);
+    CREATE OR REPLACE TRIGGER disparador_trabajador 
+    BEFORE 
+    INSERT OR UPDATE ON TRABAJADOR 
+    FOR EACH ROW
+    BEGIN
+    IF :NEW.SUELDO_BASE > 8000 
+    THEN RAISE_APPLICATION_ERROR(-20000, 'LO SIENTO ESE SUELDO ES INVALIDO');
+    END IF;
+    END;
+    
+AFTER: realizan la operacion y despues revisan la logica (en su mayoria son para automatizar)
