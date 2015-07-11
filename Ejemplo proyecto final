@@ -1,0 +1,20 @@
+App CRUD con Oracle:
+Create - insertar     - procedimiento
+Read   - buscar       - no son procedimiento
+Update - actualizar   - procedimiento
+Delete - borrar       - procedimiento
+
+|------------------------------------|
+| Pelicula | Horarios| Salas         |
+|------------------------------------|
+|Agregar   |  Nombre                 |
+|----------| |            |          |
+|Buscar ID |  Genero                 |
+|----------| |            |          |
+|Buscar all|  Clasificacion          |
+|----------| |            |          |
+|Borrar    |  Sinopsis               |
+|----------| |            |  _______ |
+|Actualizar| |            | |Guardar||
+|            |            |          |
+|------------------------------------|
