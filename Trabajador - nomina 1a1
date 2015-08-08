@@ -1,0 +1,48 @@
+create table trabajador(id_trabajador integer, nombre varchar2(120), telefono varchar2(120),
+                        constraint id_trabajdor_pk primary key(id_trabajador));
+                        
+create table nomina(id_nomina integer, id_trabajador integer, sueldo_base float, horas_extraws integer,
+                    constraint id_nomina_pk primary key(id_nomina),
+                    constraint id_trabajador_fk foreign key(id_trabajador) references trabajador(id_trabajador));
+                    
+/
+
+create sequence sec_trabajador
+start with 1
+increment by 1;
+nomaxvalue;
+
+
+create sequence sec_nomina
+start with 1
+increment by 1;
+nomaxvalue;
+
+/
+
+create or replace procedure guardar_trabajador(my_id_trabajador out integer, my_nombre in varchar2, my_telefono in varchar2)
+as
+begin
+select sec_trabajador.nextval into my_id_trabajador from dual;
+insert into trabajador values(my_id_trabajador,my_nombre,my_telefono);
+end;
+
+/
+
+create or replace procedure guardar_nomina(my_nombre in varchar2, my_telefono in varchar2, my_id_nomina out integer,
+my_sueldo_base in float, my_horas_extras in integer)
+as valor_id_trabajador integer;
+begin guardar_trabajador(valor_id_trabajador, my_nombre, my_telefono);
+select sec_nomina.nextval into my_id_nomina from dual;
+insert into nomina values(my_id_nomina,valor_id_trabajador,my_sueldo_base,my_horas_extras);
+end;
+
+/
+
+declare valor integer;
+begin
+guardar_nomina('juan','55-22-33-44',valor,4000,0);
+end;
+
+/
+SELECT * FROM trabajador;
